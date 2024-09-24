@@ -5,12 +5,13 @@ import submitit
 
 parser = ArgumentParser()
 parser.add_argument("--dataset", type=str, default="cifar10")
-parser.add_argument("--batch_size", type=int, default=32)
+# GPU with smaller memory, reduce batch size
+parser.add_argument("--batch_size", type=int, default=16)
 parser.add_argument("--n_aug", type=int, default=40)
-parser.add_argument("--lr", type=float, default=1e-3)
+parser.add_argument("--lr", type=float, default=5e-4)
 parser.add_argument("--lmbda", type=float, default=0.0)
 parser.add_argument("--epochs", type=int, default=500)
-parser.add_argument("--num_workers", type=int, default=16)
+parser.add_argument("--num_workers", type=int, default=12)
 parser.add_argument("--save_freq", type=int, default=5)
 parser.add_argument(
     "--save_folder",
@@ -29,9 +30,9 @@ executor.update_parameters(
     cpus_per_task=args.num_workers,
     nodes=1,
     name="MMCR",
-    timeout_min=60 * 72,
+    timeout_min=60 * 24,
     slurm_partition="gpu",
-    constraint="a100-80gb",
+    slurm_constraint="geforce3090",
     slurm_array_parallelism=512,
 )
 

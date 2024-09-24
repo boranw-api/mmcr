@@ -52,7 +52,7 @@ def get_datasets(dataset, n_aug, batch_transform=True, supervised=False, **kwarg
                 n_transform=n_aug,
                 **kwargs,
             ),
-            download=False,
+            download=True,
         )
         memory_data = torchvision.datasets.CIFAR10(
             root=data_dir,
@@ -63,7 +63,7 @@ def get_datasets(dataset, n_aug, batch_transform=True, supervised=False, **kwarg
                 n_transform=n_aug,
                 **kwargs,
             ),
-            download=False,
+            download=True,
         )
         test_data = torchvision.datasets.CIFAR10(
             root=data_dir,
@@ -74,7 +74,7 @@ def get_datasets(dataset, n_aug, batch_transform=True, supervised=False, **kwarg
                 n_transform=n_aug,
                 **kwargs,
             ),
-            download=False,
+            download=True,
         )
     elif dataset == "cifar100":
         train_data = torchvision.datasets.CIFAR100(

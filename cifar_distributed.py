@@ -57,17 +57,17 @@ def main(args):
 if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument("--dataset", type=str, default="cifar10")
-    parser.add_argument("--batch_size", type=int, default=16)
+    parser.add_argument("--batch_size", type=int, default=4)
     parser.add_argument("--n_aug", type=int, default=40)
-    parser.add_argument("--lr", type=float, default=1e-3)
+    parser.add_argument("--lr", type=float, default=0.000125)
     parser.add_argument("--lmbda", type=float, default=0.0)
     parser.add_argument("--epochs", type=int, default=500)
-    parser.add_argument("--num_workers", type=int, default=12)
-    parser.add_argument("--save_freq", type=int, default=5)
+    parser.add_argument("--num_workers", type=int, default=22)
+    parser.add_argument("--save_freq", type=int, default=10)
     parser.add_argument(
         "--save_folder",
         type=str,
-        default="./training_checkpoints/cifar_stl",
+        default="./training_checkpoints_distributed/cifar_stl",
     )
 
     args = parser.parse_args()

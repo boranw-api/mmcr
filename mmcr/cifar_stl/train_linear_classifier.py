@@ -1,4 +1,4 @@
-import torch
+import torch, os
 from torch import nn, optim
 from torchvision.models.resnet import resnet50
 from torchvision import transforms
@@ -73,16 +73,17 @@ def train_classifier(
     save_path=None,
     save_name=None,
 ):
+    num_workers = int(os.getenv('SLURM_CPUS_ON_NODE'))
     top_acc = 0.0
     train_data, _, test_data = get_datasets(
-        dataset, 1, "./datasets", batch_transform=False, supervised=True
+        dataset, 1, batch_transform=False, supervised=True
     )
 
     train_loader = DataLoader(
-        train_data, batch_size=batch_size, shuffle=True, num_workers=13, pin_memory=True
+        train_data, batch_size=batch_size, shuffle=True, num_workers=num_workers, pin_memory=True
     )
     test_loader = DataLoader(
-        test_data, batch_size=batch_size, shuffle=False, num_workers=13, pin_memory=True
+        test_data, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=True
     )
 
     # load pretrained weights

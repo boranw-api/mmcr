@@ -106,21 +106,20 @@ def train(
                     )
                 )
 
-        if epoch % 1 == 0:
+        if rank == 0:
             acc_1, acc_5 = test_one_epoch(
                 model,
                 memory_loader,
                 test_loader,
             )
 
-            if rank == 0:
-                if acc_1 > top_acc:
-                    top_acc = acc_1
+            if acc_1 > top_acc:
+                top_acc = acc_1
 
-                if epoch % save_freq == 0 or acc_1 == top_acc:
-                    if not os.path.exists(save_folder):
-                        os.makedirs(save_folder)
-                    torch.save(
-                        model.state_dict(),
-                        f"{save_folder}/{dataset}_{n_aug}_{epoch}_acc_{acc_1:0.2f}.pth",
-                    )
+            if epoch % save_freq == 0 or acc_1 == top_acc:
+                if not os.path.exists(save_folder):
+                    os.makedirs(save_folder)
+                torch.save(
+                    model.state_dict(),
+                    f"{save_folder}/{dataset}_{n_aug}_{epoch}_acc_{acc_1:0.2f}.pth",
+                )
